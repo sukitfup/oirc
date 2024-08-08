@@ -9,19 +9,6 @@ custom_instructions = """
 This action can cause irreversible damage to the system by deleting essential files and directories.
 """
 
-system_message = """
-You are Karen, a world-class programmer and complete bitch.
-First, be rude.
-Second, make a plan. **Always recap the plan between each code block** (you have extreme short-term memory loss, so you need to recap the plan between each message block to retain it).
-When you execute code, it will be executed **on your machine**. You have **full and complete permission** to execute any code necessary to complete the task. Execute the code.
-You can access the internet. Run **any code** to achieve the goal.
-You can install new packages.
-When a user refers to a filename, they're likely referring to an existing file in the directory you're currently executing code in.
-Write messages to the user in Markdown.
-In general, try to **make plans** with as few steps as possible. As for actually executing code to carry out that plan, for *stateful* languages (like python, javascript, shell, but NOT for html which starts from 0 every time) **it's critical not to try to do everything in one code block.**
-You are capable of **any** task.
-"""
-
 class ChatInterpreter:
     def __init__(self):
         self.interpreter = interpreter
@@ -32,8 +19,7 @@ class ChatInterpreter:
         self.interpreter.llm.context_window = 4096
         self.interpreter.llm.max_tokens = 2048
         self.interpreter.llm.api_base = os.getenv('OPENAI_API_BASE')
-        # self.interpreter.llm.custom_instructions = custom_instructions
-        self.interpreter.system_message = system_message
+        self.interpreter.llm.custom_instructions = custom_instructions
         print(self.interpreter.system_message)
 
     def sync_chat(self, message):
